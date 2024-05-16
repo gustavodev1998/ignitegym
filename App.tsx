@@ -1,10 +1,17 @@
-import { Text, View, StatusBar } from "react-native";
+import { View, StatusBar } from "react-native";
+
+import { NativeBaseProvider } from "native-base";
 
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
+
+import { Loading } from "@components/Loading";
+
+import { THEME } from "./src/theme";
+import { Routes } from "@routes/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,20 +20,14 @@ export default function App() {
   });
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#202024",
-      }}>
+    <NativeBaseProvider theme={THEME}>
       <StatusBar
         backgroundColor="transparent"
         barStyle="light-content"
         translucent
       />
 
-      {fontsLoaded ? <Text>Hello World!</Text> : <View />}
-    </View>
+      {fontsLoaded ? <Routes /> : <Loading />}
+    </NativeBaseProvider>
   );
 }
